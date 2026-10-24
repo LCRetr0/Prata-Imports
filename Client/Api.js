@@ -1,11 +1,19 @@
 const api = {
-async buscardados(){
+async buscarDados(){
     try{
     const response = await fetch("https://fakestoreapi.com/products");
+
+    if(!response.ok){
+      throw new Error(
+        `Erro HTTP: ${response.status}`
+      );
+    }
      return await response.json();
 
   }catch(error){
     console.error("Erro ao buscar dados da API:", error);
+
+    throw error;
   }
 } 
 }

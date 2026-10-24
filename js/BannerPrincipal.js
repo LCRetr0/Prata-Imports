@@ -6,7 +6,7 @@ const principal = {
         
         const containerProdutos = document.getElementById("banner-img");  
  try {
-const produtos = await api.buscardados();
+const produtos = await api.buscarDados();
 if (produtos.length > 0) {
                 const indiceAleatorio = Math.floor(Math.random() * produtos.length);
                 containerProdutos.src = produtos[indiceAleatorio].image;
