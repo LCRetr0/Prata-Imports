@@ -141,7 +141,8 @@ img {
     left: 0;
     width: 100%;
     height: 100%;
-    object-fit: cover;
+    object-fit: contain;
+    object-position: center top;
 }
 
 .conteudo-destaque {
@@ -149,7 +150,7 @@ img {
     z-index: 2;
     padding-left: 80px;
     max-width: 500px;
-    color: var(--texto-escuro);
+    color: var(--texto-claro);
 }
 
 .conteudo-destaque h2 {
@@ -161,7 +162,7 @@ img {
 .conteudo-destaque p {
     font-size: 16px;
     margin-bottom: 24px;
-    color: var(--texto-cinza);
+    color: var(--verde-principal);
 }
 
 .botao-principal {
@@ -175,7 +176,7 @@ img {
 }
 
 .botao-principal:hover {
-    background-color: var(--verde-principal);
+    background-color: var(--verde-destaque);
 }
 
 /* ==========================================================================
