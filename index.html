@@ -3,18 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Prata Imports | A Loja que te veste </title>
+    <title>Prata Imports | A Loja Diversificada</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href=".\css\style.css">
+    <link rel="stylesheet" href="./css/style.css">
 </head>
 <body>
 
-   
     <div class="barra-anuncio">
         <p>Desconto no Frete para compras acima de R$ 250,00. <a href="#">Compre Agora</a></p>
     </div>
 
-    
     <header class="cabecalho-principal">
         <div class="caixa-cabecalho">
             <div class="logotipo">
@@ -35,47 +33,42 @@
     </header>
 
     <main>
-       
-        <section class="secao-destaque">
-           
+        <!-- Janela Modal do Carrinho -->
+        <div id="modal-carrinho" class="modal" style="display: none;">
+            <div class="modal-conteudo">
+                <h2>Seu Carrinho</h2>
+                <div id="lista-itens-carrinho"></div>
+                <button id="btn-fechar-carrinho">Fechar</button>
+            </div>
+        </div>
+
+        <!-- Seção Destaque ajustada com data-id-produto -->
+        <section class="secao-destaque" data-id-produto="destaque-1">
             <img id="banner-img" alt="Banner Destaque" class="imagem-fundo-destaque">
             <div class="conteudo-destaque">
-                <h2>Eleve o Seu Estilo</h2>
-                <p>Moda Atemporal e Escolhas Sustentáveis</p>
-                <a href="#" class="botao-principal">Comprar Agora</a>
+                <h2 class="titulo-destaque">Eleve o Seu Estilo</h2>
+                <p class="descricao-destaque">Moda Atemporal e Escolhas Sustentáveis</p>
+                <p class="preco-destaque" style="display: none;">R$ 349,00</p>
+                <button class="botao-principal botao-adicionar-destaque">Comprar Agora</button>
             </div>
         </section>
 
-        
         <section class="texto-introducao">
             <p>Eleve o seu estilo de vida com um guarda-roupa inteligente e superior.<br>Nossa coleção é desenvolvida de forma sustentável, focando na durabilidade.</p>
         </section>
 
-        
         <section class="grade-categorias">
-            <div class="cartao-categoria">
-    
-                <img src="https://via.placeholder.com/450x600/333/ff69b4?text=Categoria+1" alt="Categoria 1">
-            </div>
-            <div class="cartao-categoria">
-    
-                <img src="https://via.placeholder.com/450x600/222/ff69b4?text=Categoria+2" alt="Categoria 2">
-            </div>
-            <div class="cartao-categoria">
-
-                <img src="https://via.placeholder.com/450x600/444/ff69b4?text=Categoria+3" alt="Categoria 3">
-            </div>
+            <div class="cartao-categoria"><img src="https://via.placeholder.com/450x600/333/ff69b4?text=Categoria+1" alt="Categoria 1"></div>
+            <div class="cartao-categoria"><img src="https://via.placeholder.com/450x600/222/ff69b4?text=Categoria+2" alt="Categoria 2"></div>
+            <div class="cartao-categoria"><img src="https://via.placeholder.com/450x600/444/ff69b4?text=Categoria+3" alt="Categoria 3"></div>
         </section>
 
-        <!-- 6. Seção de Produtos (Vitrine) -->
         <section class="secao-produtos">
             <h3 class="titulo-secao">O Que Usar Agora</h3>
-            
             <div class="grade-produtos">
-    
+                
                 <div class="cartao-produto" data-id-produto="1">
                     <div class="caixa-imagem-produto">
-            
                         <img src="https://via.placeholder.com/300x400/111/fff?text=Produto+1" alt="Bolsa Classic Easy Zipper">
                         <button class="botao-adicionar-carrinho" title="Adicionar ao Carrinho">+</button>
                     </div>
@@ -85,7 +78,6 @@
                     </div>
                 </div>
 
-                <!-- Card Produto 2 -->
                 <div class="cartao-produto" data-id-produto="2">
                     <div class="caixa-imagem-produto">
                         <img src="https://via.placeholder.com/300x400/222/fff?text=Produto+2" alt="Bolsa Porta-Celular Concertina">
@@ -97,7 +89,6 @@
                     </div>
                 </div>
 
-                <!-- Card Produto 3 -->
                 <div class="cartao-produto" data-id-produto="3">
                     <div class="caixa-imagem-produto">
                         <img src="https://via.placeholder.com/300x400/333/fff?text=Produto+3" alt="Casaco Lã e Cashmere">
@@ -109,7 +100,6 @@
                     </div>
                 </div>
 
-                <!-- Card Produto 4 -->
                 <div class="cartao-produto" data-id-produto="4">
                     <div class="caixa-imagem-produto">
                         <img src="https://via.placeholder.com/300x400/444/fff?text=Produto+4" alt="Gorro Cashmere Single-Origin">
@@ -121,7 +111,6 @@
                     </div>
                 </div>
 
-                <!-- Card Produto 5 -->
                 <div class="cartao-produto" data-id-produto="5">
                     <div class="caixa-imagem-produto">
                         <img src="https://via.placeholder.com/300x400/555/fff?text=Produto+5" alt="Cardigan Cropped Lã Alpaca">
@@ -132,44 +121,38 @@
                         <p class="preco-produto">R$ 248,00</p>
                     </div>
                 </div>
+
             </div>
         </section>
 
-        <!-- 7. Seção Banners Duplos Lado a Lado -->
         <section class="secao-banner-duplo">
             <div class="caixa-banner">
-    
                 <img src="https://via.placeholder.com/700x500/111/fff?text=Estilo+Smart+Chic" alt="O Chique Inteligente">
                 <div class="texto-sobreposto-banner">O Chique Inteligente</div>
             </div>
             <div class="caixa-banner">
-    
                 <img src="https://via.placeholder.com/700x500/222/fff?text=Pronto+Para+Sair" alt="Pronto Para Sair">
                 <div class="texto-sobreposto-banner">Pronto Para Sair</div>
             </div>
         </section>
 
-        <!-- 8. Seção Manifesto / Texto Institucional -->
         <section class="secao-manifesto">
             <h2>A Arte de Escolher Melhor e Menos</h2>
             <p>Optar por qualidade em vez de quantidade significa selecionar peças.</p>
         </section>
 
-        <!-- 9. Seção Galeria Instagram -->
         <section class="secao-instagram">
             <h4 class="titulo-instagram">Visite nosso Instagram</h4>
             <div class="grade-instagram">
-                <!-- COLOQUE AS FOTOS DO INSTAGRAM AQUI -->
                 <div class="item-instagram"><img src="https://via.placeholder.com/250x250/222/ff69b4?text=Insta+1" alt="Instagram 1"></div>
                 <div class="item-instagram"><img src="https://via.placeholder.com/250x250/333/ff69b4?text=Insta+2" alt="Instagram 2"></div>
                 <div class="item-instagram"><img src="https://via.placeholder.com/250x250/444/ff69b4?text=Insta+3" alt="Instagram 3"></div>
                 <div class="item-instagram"><img src="https://via.placeholder.com/250x250/555/ff69b4?text=Insta+4" alt="Instagram 4"></div>
-                <div class="item-instagram"><img src="https://via.placeholder.com/250x250/666/ff69b4?text=Insta+5" alt="Instagram 5"></div>
+                <div class="item-instagram"><img src="https://via.placeholder.com/250x250/666/ff69b4$text=Insta+5" alt="Instagram 5"></div>
             </div>
         </section>
     </main>
 
-    <!-- 10. Rodapé (Footer) -->
     <footer class="rodape-principal">
         <div class="caixa-rodape">
             <div class="coluna-rodape">
@@ -178,7 +161,6 @@
                 <p>Envie um E-mail</p>
                 <p class="horario-atendimento">Seg-Sex 9h às 18h</p>
             </div>
-            
             <div class="coluna-rodape">
                 <h5>CLIENTES</h5>
                 <ul>
@@ -186,7 +168,6 @@
                     <li><a href="#">Política de Troca</a></li>
                 </ul>
             </div>
-
             <div class="coluna-rodape">
                 <h5>EMPRESA</h5>
                 <ul>
@@ -194,13 +175,16 @@
                     <li><a href="#">Termos de Uso</a></li>
                 </ul>
             </div>
-
             <div class="coluna-rodape coluna-newsletter">
                 <h5>Receba as nossas novidades</h5>
                 <form id="formulario-newsletter" onsubmit="event.preventDefault();">
                     <input type="email" placeholder="Digite o seu e-mail" required>
-                    <p class="aviso-privacidade">Ao assinar, você concorda com a nossa <a href="#">Política de Privacidade</a> e com o envio de e-mails promocionais.</p></div>
+                    <p class="aviso-privacidade">Ao assinar, você concorda com a nossa <a href="#">Política de Privacidade</a> e com o envio de e-mails promocionais.</p>
+                </form>
+            </div>
+        </div>
+    </footer>
 
-        
-<script type="module" src="./js/index.js"></script>
-                </body>
+    <script type="module" src="./js/index.js"></script>
+</body>
+</html>
