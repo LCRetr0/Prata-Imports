@@ -13,7 +13,7 @@ const AdicionarAoCarrinho = {
         botaoComprar.textContent = "Adicionando...";
       }
 
-      const produtosDisponiveis = await api.buscardados();
+      const produtosDisponiveis = await api.buscarDados();
       const produtoExiste = produtosDisponiveis.some(prod => prod.id === carrinhoItem.id);
       
       if (!produtoExiste) {
@@ -47,7 +47,7 @@ const AdicionarAoCarrinho = {
 
   async abrirCarrinho() {
     try {
-      const produtosDisponiveis = await api.buscardados();
+      const produtosDisponiveis = await api.buscarDados();
       
       carrinho = carrinho.filter(item => produtosDisponiveis.some(prod => prod.id === item.id));
       
