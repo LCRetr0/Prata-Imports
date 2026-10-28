@@ -1,23 +1,22 @@
 import api from "../Client/Api.js";
 import principal from "./BannerPrincipal.js";
+import secundario from "./FotosProdutos.js";
 import AdicionarAoCarrinho from "./Carrinho.js"; 
 
 document.addEventListener("DOMContentLoaded", async () => {
-    await principal.redenrizarProdutos();
     const modalCarrinho = document.getElementById("modal-carrinho");
     const btnAbrirCarrinho = document.getElementById("botao-carrinho");
     const btnFecharCarrinho = document.getElementById("btn-fechar-carrinho");
-    
- 
+    const dados = await api.buscarDados(); 
+
     try {
        
         const bannerImg = document.getElementById("banner-img");
-        
+       
      
         if (dados) {
-          
-            if (Array.isArray(dados) && dados.length > 0 && dados[0].imagemBanner) {
-                bannerImg.src = dados[0].imagemBanner;
+            if (Array.isArray(dados) && dados.length > 0 && dados[0].image) {
+                bannerImg.src = dados[0].image;
             } else {
                
                 bannerImg.src = "https://via.placeholder.com/1200x600/222/fff?text=Prata+Imports+Destaque";
@@ -26,6 +25,27 @@ document.addEventListener("DOMContentLoaded", async () => {
     } catch (e) {
         console.error("Erro ao carregar dados da API para o banner:", e);
         document.getElementById("banner-img").src = "https://via.placeholder.com/1200x600/222/fff?text=Prata+Imports+Destaque";
+    }
+
+
+
+
+    try {
+       
+        const DemaisProdutos = document.getElementById("containerimg");
+       
+     
+        if (dados) {
+            if (Array.isArray(dados) && dados.length > 0 && dados[0].imagem) {
+                DemaisProdutos.src = dados[0].imagem;
+            } else {
+               
+                DemaisProdutos.src = "https://via.placeholder.com/1200x600/222/fff?text=Prata+Imports+Destaque";
+            }
+        }
+    } catch (e) {
+        console.error("Erro ao carregar dados da API para o banner:", e);
+        document.getElementById("containerimg").src = "https://via.placeholder.com/1200x600/222/fff?text=Prata+Imports+Destaque";
     }
 
 
