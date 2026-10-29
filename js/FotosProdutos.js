@@ -7,15 +7,23 @@ const secundario = {
             
             if (Array.isArray(produtos) && produtos.length > 0) {
                 
-                const elementosImagens = document.querySelectorAll(".containerimg");
-                
-                elementosImagens.forEach((imgElement) => {
-                
-                    const indiceAleatorio = Math.floor(Math.random() * produtos.length);
+                const cartoesProdutos = document.querySelectorAll(".cartao-produto");
+        
+                cartoesProdutos.forEach((cartao,indice) => {
+                    const produto = produtos[indice % produtos.length];
+                    const imagem = cartao.querySelector("img");
+                    const titulo = cartao.querySelector(".titulo-produto");
+                    const preco = cartao.querySelector(".preco-produto");
                     
-                    if (produtos[indiceAleatorio].imagem) {
-                        imgElement.src = produtos[indiceAleatorio].imagem;
-                    }
+                    imagem.src = produto.image;
+                    imagem.atl = produto.title;
+                    titulo.textContent = produto.title;
+                    preco.textContent = produto.price.toLocaleString("pt-BR",{
+                        style:"currency",
+                        currency: "BRL"
+                    });
+                    
+                    
                 });
             }
         } catch (error) {

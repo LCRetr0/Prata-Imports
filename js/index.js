@@ -4,6 +4,10 @@ import secundario from "./FotosProdutos.js";
 import AdicionarAoCarrinho from "./Carrinho.js"; 
 
 document.addEventListener("DOMContentLoaded", async () => {
+    
+    await principal.redenrizarProdutos();
+    await secundario.trazerProdutos();
+    
     const modalCarrinho = document.getElementById("modal-carrinho");
     const btnAbrirCarrinho = document.getElementById("botao-carrinho");
     const btnFecharCarrinho = document.getElementById("btn-fechar-carrinho");
@@ -29,24 +33,6 @@ document.addEventListener("DOMContentLoaded", async () => {
 
 
 
-
-    try {
-       
-        const DemaisProdutos = document.getElementById("containerimg");
-       
-     
-        if (dados) {
-            if (Array.isArray(dados) && dados.length > 0 && dados[0].imagem) {
-                DemaisProdutos.src = dados[0].imagem;
-            } else {
-               
-                DemaisProdutos.src = "https://via.placeholder.com/1200x600/222/fff?text=Prata+Imports+Destaque";
-            }
-        }
-    } catch (e) {
-        console.error("Erro ao carregar dados da API para o banner:", e);
-        document.getElementById("containerimg").src = "https://via.placeholder.com/1200x600/222/fff?text=Prata+Imports+Destaque";
-    }
 
 
     if (btnAbrirCarrinho) {
