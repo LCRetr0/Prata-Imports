@@ -1,7 +1,7 @@
 const api = {
 async buscarDados(){
     try{
-    const response = await fetch("https://fakestoreapi.com/products");
+    const response = await fetch("https://dummyjson.com/products");
 
     if(!response.ok){
       throw new Error(
@@ -16,5 +16,7 @@ async buscarDados(){
     throw error;
   }
 } 
+
+
 }
 export default api;

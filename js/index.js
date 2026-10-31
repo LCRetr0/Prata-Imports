@@ -2,12 +2,15 @@ import api from "../Client/Api.js";
 import principal from "./BannerPrincipal.js";
 import secundario from "./FotosProdutos.js";
 import AdicionarAoCarrinho from "./Carrinho.js"; 
+import preco from "./Preço.js";
+import titulo from "./titulo.js";
 
 document.addEventListener("DOMContentLoaded", async () => {
     const modalCarrinho = document.getElementById("modal-carrinho");
     const btnAbrirCarrinho = document.getElementById("botao-carrinho");
     const btnFecharCarrinho = document.getElementById("btn-fechar-carrinho");
     const dados = await api.buscarDados(); 
+
 
     try {
        
@@ -27,7 +30,8 @@ document.addEventListener("DOMContentLoaded", async () => {
         document.getElementById("banner-img").src = "https://via.placeholder.com/1200x600/222/fff?text=Prata+Imports+Destaque";
     }
 
-
+    await preco.trazerPreco();
+    await titulo.trazertitulo();
 
 
     try {
