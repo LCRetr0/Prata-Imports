@@ -1,6 +1,6 @@
 import api from "../Client/Api.js";
 import principal from "./BannerPrincipal.js";
-import secundario from "./FotosProdutos.js";
+import secundario from './FotosProdutos.js';
 import AdicionarAoCarrinho from "./Carrinho.js"; 
 import preco from "./Preço.js";
 import titulo from "./titulo.js";
@@ -9,48 +9,22 @@ document.addEventListener("DOMContentLoaded", async () => {
     const modalCarrinho = document.getElementById("modal-carrinho");
     const btnAbrirCarrinho = document.getElementById("botao-carrinho");
     const btnFecharCarrinho = document.getElementById("btn-fechar-carrinho");
+    
     const dados = await api.buscarDados(); 
+    await secundario.trazerProdutos();
 
-
+  
     try {
-       
         const bannerImg = document.getElementById("banner-img");
-       
-     
-        if (dados) {
-            if (Array.isArray(dados) && dados.length > 0 && dados[0].image) {
-                bannerImg.src = dados[0].image;
-            } else {
-               
-                bannerImg.src = "https://via.placeholder.com/1200x600/222/fff?text=Prata+Imports+Destaque";
-            }
+        if (bannerImg && Array.isArray(dados) && dados.length > 0) {
+            bannerImg.src = dados[0].imagem || dados[0].image || "https://via.placeholder.com/1200x600/222/fff?text=Prata+Imports+Destaque";
         }
     } catch (e) {
-        console.error("Erro ao carregar dados da API para o banner:", e);
-        document.getElementById("banner-img").src = "https://via.placeholder.com/1200x600/222/fff?text=Prata+Imports+Destaque";
+        console.error("Erro ao carregar banner:", e);
     }
 
     await preco.trazerPreco();
     await titulo.trazertitulo();
-
-
-    try {
-       
-        const DemaisProdutos = document.getElementById("containerimg");
-       
-     
-        if (dados) {
-            if (Array.isArray(dados) && dados.length > 0 && dados[0].imagem) {
-                DemaisProdutos.src = dados[0].imagem;
-            } else {
-               
-                DemaisProdutos.src = "https://via.placeholder.com/1200x600/222/fff?text=Prata+Imports+Destaque";
-            }
-        }
-    } catch (e) {
-        console.error("Erro ao carregar dados da API para o banner:", e);
-        document.getElementById("containerimg").src = "https://via.placeholder.com/1200x600/222/fff?text=Prata+Imports+Destaque";
-    }
 
 
     if (btnAbrirCarrinho) {
@@ -68,20 +42,18 @@ document.addEventListener("DOMContentLoaded", async () => {
         });
     }
 
-
     document.querySelectorAll(".botao-adicionar-carrinho").forEach(botao => {
         botao.addEventListener("click", async (e) => {
             const card = e.target.closest(".cartao-produto");
             const item = {
                 id: card.getAttribute("data-id-produto"),
                 nome: card.querySelector(".titulo-produto").textContent,
-                preco: parseFloat(card.querySelector(".preco-produto").textContent.replace("R$", "").replace(".", "").replace(",", ".").trim())
+                preco: parseFloat(card.querySelector(".preco-produto").textContent.replace("R$", "").replace(".", "").replace(",", ".").trim()) || 0
             };
             await AdicionarAoCarrinho.adicionar(item);
             atualizarContador();
         });
     });
-
 
     const btnDestaque = document.querySelector(".botao-adicionar-destaque");
     if (btnDestaque) {
@@ -89,7 +61,7 @@ document.addEventListener("DOMContentLoaded", async () => {
             const secaoDestaque = document.querySelector(".secao-destaque");
             const itemDestaque = {
                 id: secaoDestaque.getAttribute("data-id-produto"),
-                nome: secaoDestaque.querySelector(".titulo-destaque").textContent,
+                nome: secaoDestaque.querySelector(".titulo-produto").textContent,
                 preco: 349.00
             };
             await AdicionarAoCarrinho.adicionar(itemDestaque);

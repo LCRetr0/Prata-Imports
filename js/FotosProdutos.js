@@ -7,16 +7,43 @@ const secundario = {
             
             if (Array.isArray(produtos) && produtos.length > 0) {
                 
-                const elementosImagens = document.querySelectorAll(".containerimg");
-                
-                elementosImagens.forEach((imgElement) => {
-                
-                    const indiceAleatorio = Math.floor(Math.random() * produtos.length);
+
+                const cartoesProdutos = document.querySelectorAll(".cartao-produto");
+                cartoesProdutos.forEach((cartao) => {
+                    const idProduto = cartao.getAttribute("data-id-produto");
+                    const produtoEncontrado = produtos.find(p => p.id == idProduto);
                     
-                    if (produtos[indiceAleatorio].imagem) {
-                        imgElement.src = produtos[indiceAleatorio].imagem;
+                    if (produtoEncontrado) {
+                        const img = cartao.querySelector(".caixa-imagem-produto img");
+                        const urlImagem = produtoEncontrado.imagem || produtoEncontrado.image;
+                        
+                        if (img && urlImagem) {
+                            img.src = urlImagem;
+                        }
                     }
                 });
+
+       
+                const cartoesCategorias = document.querySelectorAll(".cartao-categoria img");
+                cartoesCategorias.forEach((imgElement, index) => {
+                    const produtoRef = produtos[index % produtos.length];
+                    const urlCat = produtoRef.imagem || produtoRef.image;
+                    if (urlCat) {
+                        imgElement.src = urlCat;
+                    }
+                });
+
+                
+                const secaoDestaque = document.querySelector(".secao-destaque");
+                if (secaoDestaque) {
+                    const bannerImg = document.getElementById("banner-img");
+                    if (bannerImg && produtos[0]) {
+                        const urlDestaque = produtos[0].imagem || produtos[0].image;
+                        if (urlDestaque) {
+                            bannerImg.src = urlDestaque;
+                        }
+                    }
+                }
             }
         } catch (error) {
             console.error("Erro ao renderizar produtos:", error);
