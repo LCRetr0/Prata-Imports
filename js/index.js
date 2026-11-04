@@ -12,12 +12,12 @@ document.addEventListener("DOMContentLoaded", async () => {
     
     const dados = await api.buscarDados(); 
     await secundario.trazerProdutos();
-
+    await principal.redenrizarProdutos();
   
     try {
-        const bannerImg = document.getElementById("banner-img");
+        const bannerImg = document.getElementById("data-id-produto");
         if (bannerImg && Array.isArray(dados) && dados.length > 0) {
-            bannerImg.src = dados[0].imagem || dados[0].image || "https://via.placeholder.com/1200x600/222/fff?text=Prata+Imports+Destaque";
+            bannerImg.src = dados[0].thumbnail || dados[0].image || "https://via.placeholder.com/1200x600/222/fff?text=Prata+Imports+Destaque";
         }
     } catch (e) {
         console.error("Erro ao carregar banner:", e);

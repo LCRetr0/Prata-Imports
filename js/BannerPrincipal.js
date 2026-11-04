@@ -4,7 +4,7 @@ import api from "../Client/Api.js";
 const principal = {
     async redenrizarProdutos(){
         
-        const containerProdutos = document.getElementById("banner-img");  
+        const containerProdutos = document.getElementById("data-id-produto");  
  try {
 const produtos = await api.buscarDados();
 if (produtos.length > 0) {
