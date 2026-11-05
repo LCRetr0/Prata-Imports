@@ -1,0 +1,3 @@
+Reformulei as classes e apaguei duas outras por que esstava causando concorrencia,
+trocar os id das classes do index para correspondentes aos do FotosProdutos.js, 
+já que lá traz preço, titulo e imagem.
