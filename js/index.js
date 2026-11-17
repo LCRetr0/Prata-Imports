@@ -1,63 +1,46 @@
-import api from "../Client/Api.js";
-import principal from "./BannerPrincipal.js";
-import secundario from "./FotosProdutos.js";
+//import api from "../Client/Api.js";
+import secundario from './FotosProdutos.js';
 import AdicionarAoCarrinho from "./Carrinho.js"; 
+
+
 
 document.addEventListener("DOMContentLoaded", async () => {
     
-    await principal.redenrizarProdutos();
+    console.log("1 - HTML carregado");
+
     await secundario.trazerProdutos();
+
+    console.log("3 - Função trazerProdutos finalizada");
     
     const modalCarrinho = document.getElementById("modal-carrinho");
     const btnAbrirCarrinho = document.getElementById("botao-carrinho");
     const btnFecharCarrinho = document.getElementById("btn-fechar-carrinho");
-    const dados = await api.buscarDados(); 
-
-    try {
-       
-        const bannerImg = document.getElementById("banner-img");
-       
-     
-        if (dados) {
-            if (Array.isArray(dados) && dados.length > 0 && dados[0].image) {
-                bannerImg.src = dados[0].image;
-            } else {
-               
-                bannerImg.src = "https://via.placeholder.com/1200x600/222/fff?text=Prata+Imports+Destaque";
-            }
-        }
-    } catch (e) {
-        console.error("Erro ao carregar dados da API para o banner:", e);
-        document.getElementById("banner-img").src = "https://via.placeholder.com/1200x600/222/fff?text=Prata+Imports+Destaque";
-    }
-
-
-
-
 
     if (btnAbrirCarrinho) {
         btnAbrirCarrinho.addEventListener("click", async (e) => {
             e.preventDefault();
             const itens = await AdicionarAoCarrinho.abrirCarrinho();
             renderizarModal(itens);
-            modalCarrinho.style.display = "block";
+            if (modalCarrinho) modalCarrinho.style.display = "block";
         });
     }
 
     if (btnFecharCarrinho) {
         btnFecharCarrinho.addEventListener("click", () => {
-            modalCarrinho.style.display = "none";
+            if (modalCarrinho) modalCarrinho.style.display = "none";
         });
     }
 
-
+    
     document.querySelectorAll(".botao-adicionar-carrinho").forEach(botao => {
         botao.addEventListener("click", async (e) => {
             const card = e.target.closest(".cartao-produto");
+            if (!card) return;
+
             const item = {
                 id: card.getAttribute("data-id-produto"),
-                nome: card.querySelector(".titulo-produto").textContent,
-                preco: parseFloat(card.querySelector(".preco-produto").textContent.replace("R$", "").replace(".", "").replace(",", ".").trim())
+                nome: card.querySelector(".titulo-produto")?.textContent || "Produto",
+                preco: parseFloat(card.querySelector(".preco-produto")?.textContent.replace("R$", "").replace(".", "").replace(",", ".").trim()) || 0
             };
             await AdicionarAoCarrinho.adicionar(item);
             atualizarContador();
@@ -70,9 +53,9 @@ document.addEventListener("DOMContentLoaded", async () => {
         btnDestaque.addEventListener("click", async () => {
             const secaoDestaque = document.querySelector(".secao-destaque");
             const itemDestaque = {
-                id: secaoDestaque.getAttribute("data-id-produto"),
-                nome: secaoDestaque.querySelector(".titulo-destaque").textContent,
-                preco: 349.00
+                id: secaoDestaque?.getAttribute("data-id-produto") || "1",
+                nome: secaoDestaque?.querySelector(".titulo-produto")?.textContent || "Destaque",
+                preco: Number(secaoDestaque?.getAttribute("data-preco-produto"))||0
             };
             await AdicionarAoCarrinho.adicionar(itemDestaque);
             atualizarContador();
@@ -84,6 +67,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
 function renderizarModal(itens) {
     const container = document.getElementById("lista-itens-carrinho");
+    if (!container) return;
     container.innerHTML = "";
 
     if (!itens || itens.length === 0) {
@@ -93,8 +77,9 @@ function renderizarModal(itens) {
 
     itens.forEach(item => {
         const div = document.createElement("div");
+        div.className = "item-carrinho-linha";
         div.innerHTML = `
-            <span>${item.nome} - R$ ${item.preco.toFixed(2)} (Qtd: ${item.quantidade})</span>
+            <span>${item.nome} - R$ ${item.preco.toFixed(2).replace(".", ",")} (Qtd: ${item.quantidade})</span>
             <button class="btn-remover-item" data-id="${item.id}">❌</button>
         `;
         container.appendChild(div);

@@ -1,14 +1,15 @@
 const api = {
 async buscarDados(){
     try{
-    const response = await fetch("https://fakestoreapi.com/products");
+    const response = await fetch("https://dummyjson.com/products");
 
     if(!response.ok){
       throw new Error(
         `Erro HTTP: ${response.status}`
       );
     }
-     return await response.json();
+    const dados = await response.json();
+    return dados.products;
 
   }catch(error){
     console.error("Erro ao buscar dados da API:", error);
@@ -16,5 +17,7 @@ async buscarDados(){
     throw error;
   }
 } 
+
+
 }
 export default api;
