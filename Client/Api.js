@@ -18,6 +18,5 @@ async buscarDados(){
   }
 } 
 
-
-}
+};
 export default api;

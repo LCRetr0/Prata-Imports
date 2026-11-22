@@ -3,26 +3,29 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Prata Imports | A Loja Diversificada</title>
+    <title>Prata Imports | Curadoria de Estilo de Vida, Casa & Beleza</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,500;0,600;1,400&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="./css/style.css">
 </head>
 <body>
 
     <div class="barra-anuncio">
-        <p>Desconto no Frete para compras acima de R$ 250,00. <a href="#">Compre Agora</a></p>
+        <p>Frete Grátis para todo o Brasil em compras acima de R$ 250,00. <a href="#produtos">Explorar Catálogo</a></p>
     </div>
 
     <header class="cabecalho-principal">
         <div class="caixa-cabecalho">
             <div class="logotipo">
-                <a href="#">Prata Imports</a>
+                <a href="#">PRATA <span>IMPORTS</span></a>
             </div>
             <nav class="links-navegacao">
-                <a href="#">Loja</a>
-                <a href="#">Novidades</a>
-                <a href="#">Promoções</a>
-                <a href="#">Editorial</a>
+                <a href="#">Beleza & Fragrâncias</a>
+                <a href="#">Casa & Décor</a>
+                <a href="#">Essenciais</a>
+                <a href="#">Ofertas</a>
             </nav>
             <div class="icones-cabecalho">
                 <a href="#" id="botao-busca" title="Buscar"><i class="fa-solid fa-magnifying-glass"></i></a>
@@ -36,39 +39,51 @@
         <!-- Janela Modal do Carrinho -->
         <div id="modal-carrinho" class="modal" style="display: none;">
             <div class="modal-conteudo">
-                <h2>Seu Carrinho</h2>
+                <h2>Sua Sacola</h2>
                 <div id="lista-itens-carrinho"></div>
-                <button id="btn-fechar-carrinho">Fechar</button>
+                <button id="btn-fechar-carrinho" class="botao-secundario">Continuar Comprando</button>
             </div>
         </div>
 
-        <!-- Seção Destaque ajustada com data-id-produto -->
+        <!-- Seção Destaque -->
         <section class="secao-destaque" data-id-produto="destaque-1">
-            <img alt="Banner Destaque" class="imagem-fundo-destaque">
+            <img alt="Produto em Destaque" class="imagem-fundo-destaque">
             <div class="conteudo-destaque">
+                <span class="tag-destaque">Curadoria Exclusiva</span>
                 <h2 class="titulo-produto"></h2>
-                <p class="descricao-destaque">Escolhas Sustentáveis</p>
+                <p class="descricao-destaque">Design, fragrâncias e itens selecionados para transformar a sua rotina.</p>
                 <p class="preco-produto" style="display: none;">R$ </p>
-                <button class="botao-principal botao-adicionar-destaque">Comprar Agora</button>
+                <button class="botao-principal botao-adicionar-destaque">Adicionar à Sacola</button>
             </div>
         </section>
 
         <section class="texto-introducao">
-            <p>Eleve o seu estilo de vida com um guarda-roupa inteligente e superior.<br>Nossa coleção é desenvolvida de forma sustentável, focando na durabilidade.</p>
-        </section>
-        <section class="grade-categorias">
-            <div class="cartao-categoria" alt="Categoria 1"></div>
-            <div class="cartao-categoria" alt="Categoria 2"></div>
-            <div class="cartao-categoria" alt="Categoria 3"></div>
+            <p>Uma seleção diversificada pensada para o seu dia a dia.<br>De cosméticos importados a peças de design para o seu ambiente, reunimos qualidade e praticidade em um só lugar.</p>
         </section>
 
-        <section class="secao-produtos">
-            <h3 class="titulo-secao">O Que Usar Agora</h3>
+        <!-- Categorias alinhadas aos dados da DummyJSON -->
+        <section class="grade-categorias">
+            <div class="cartao-categoria" alt="Beleza & Skincare">
+                <span>Beleza & Skincare</span>
+            </div>
+            <div class="cartao-categoria" alt="Fragrâncias Importadas">
+                <span>Fragrâncias</span>
+            </div>
+            <div class="cartao-categoria" alt="Casa & Decoração">
+                <span>Casa & Décor</span>
+            </div>
+        </section>
+
+        <section class="secao-produtos" id="produtos">
+            <div class="cabecalho-secao">
+                <h3 class="titulo-secao">Destaques do Catálogo</h3>
+                <p class="subtitulo-secao">Os itens mais procurados da nossa vitrine internacional</p>
+            </div>
+            
             <div class="grade-produtos">
-                
                 <div class="cartao-produto" data-id-produto="1">
                     <div class="caixa-imagem-produto">
-                        <img src="https://via.placeholder.com/300x400/111/fff?text=Produto+1" alt="Produto 1">
+                        <img src="https://via.placeholder.com/300x300/f4f4f5/111?text=Carregando..." alt="Produto 1">
                         <button class="botao-adicionar-carrinho" title="Adicionar ao Carrinho">+</button>
                     </div>
                     <div class="informacoes-produto">
@@ -79,7 +94,7 @@
 
                 <div class="cartao-produto" data-id-produto="2">
                     <div class="caixa-imagem-produto">
-                        <img src="https://via.placeholder.com/300x400/222/fff?text=Produto+2" alt="Bolsa Porta-Celular Concertina">
+                        <img src="https://via.placeholder.com/300x300/f4f4f5/111?text=Carregando..." alt="Produto 2">
                         <button class="botao-adicionar-carrinho" title="Adicionar ao Carrinho">+</button>
                     </div>
                     <div class="informacoes-produto">
@@ -90,7 +105,7 @@
 
                 <div class="cartao-produto" data-id-produto="3">
                     <div class="caixa-imagem-produto">
-                        <img src="https://via.placeholder.com/300x400/333/fff?text=Produto+3" alt="Casaco Lã e Cashmere">
+                        <img src="https://via.placeholder.com/300x300/f4f4f5/111?text=Carregando..." alt="Produto 3">
                         <button class="botao-adicionar-carrinho" title="Adicionar ao Carrinho">+</button>
                     </div>
                     <div class="informacoes-produto">
@@ -101,7 +116,7 @@
 
                 <div class="cartao-produto" data-id-produto="4">
                     <div class="caixa-imagem-produto">
-                        <img src="https://via.placeholder.com/300x400/444/fff?text=Produto+4" alt="Gorro Cashmere Single-Origin">
+                        <img src="https://via.placeholder.com/300x300/f4f4f5/111?text=Carregando..." alt="Produto 4">
                         <button class="botao-adicionar-carrinho" title="Adicionar ao Carrinho">+</button>
                     </div>
                     <div class="informacoes-produto">
@@ -112,7 +127,7 @@
 
                 <div class="cartao-produto" data-id-produto="5">
                     <div class="caixa-imagem-produto">
-                        <img src="https://via.placeholder.com/300x400/555/fff?text=Produto+5" alt="Cardigan Cropped Lã Alpaca">
+                        <img src="https://via.placeholder.com/300x300/f4f4f5/111?text=Carregando..." alt="Produto 5">
                         <button class="botao-adicionar-carrinho" title="Adicionar ao Carrinho">+</button>
                     </div>
                     <div class="informacoes-produto">
@@ -120,65 +135,127 @@
                         <p class="preco-produto"></p>
                     </div>
                 </div>
-
             </div>
         </section>
 
         <section class="secao-banner-duplo">
-            <div class="caixa-banner">
-                <img src="https://via.placeholder.com/700x500/111/fff?text=Estilo+Smart+Chic" alt="O Chique Inteligente">
-                <div class="texto-sobreposto-banner"></div>
+            <div class="caixa-imagem-produto banner-editorial">
+                <img src="https://images.unsplash.com/photo-1596462502278-27bfdc403348?auto=format&fit=crop&w=800&q=80" alt="Essenciais de Beleza">
+                <div class="texto-sobreposto-banner">
+                    <h4>Autocuidado & Beleza</h4>
+                    <p>Cosméticos e fragrâncias selecionadas</p>
+                </div>
             </div>
-            <div class="caixa-banner">
-                <img src="https://via.placeholder.com/700x500/222/fff?text=Pronto+Para+Sair" alt="Pronto Para Sair">
-                <div class="texto-sobreposto-banner"></div>
+            <div class="caixa-imagem-produto banner-editorial">
+                <img src="https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?auto=format&fit=crop&w=800&q=80" alt="Design para Casa">
+                <div class="texto-sobreposto-banner">
+                    <h4>Interiores & Design</h4>
+                    <p>Peças modernas para renovar cada ambiente</p>
+                </div>
             </div>
         </section>
 
         <section class="secao-manifesto">
-            <h2>A Arte de Escolher Melhor e Menos</h2>
-            <p>Optar por qualidade em vez de quantidade significa selecionar peças.</p>
+            <h2>Curadoria Inteligente para o Seu Estilo de Vida</h2>
+            <p>Acreditamos que cada detalhe importa — do aroma que você escolhe ao objeto que compõe a sua casa.</p>
         </section>
 
-        <section class="secao-instagram">
-            <h4 class="titulo-instagram">Visite nosso Instagram</h4>
-            <div class="grade-instagram">
-                <div class="item-instagram"><img src="https://via.placeholder.com/250x250/222/ff69b4?text=Insta+1" alt="Instagram 1"></div>
-                <div class="item-instagram"><img src="https://via.placeholder.com/250x250/333/ff69b4?text=Insta+2" alt="Instagram 2"></div>
-                <div class="item-instagram"><img src="https://via.placeholder.com/250x250/444/ff69b4?text=Insta+3" alt="Instagram 3"></div>
-                <div class="item-instagram"><img src="https://via.placeholder.com/250x250/555/ff69b4?text=Insta+4" alt="Instagram 4"></div>
-                <div class="item-instagram"><img src="https://via.placeholder.com/250x250/666/ff69b4?text=Insta+5" alt="Instagram 5"></div>
+ <section class="secao-instagram">
+    <div class="cabecalho-secao">
+        <h4 class="titulo-instagram">Compre o Look @PrataImports</h4>
+        <p class="subtitulo-secao">Clique nos itens da nossa comunidade para adicionar à sacola</p>
+    </div>
+
+    <div class="grade-instagram">
+        <div class="item-instagram cartao-produto" data-id-produto="6">
+            <img src="https://via.placeholder.com/300x300/f4f4f5/111?text=Post+1" alt="Instagram Produto 6">
+            <div class="overlay-instagram">
+                <p class="titulo-produto"></p>
+                <p class="preco-produto"></p>
+                <button class="botao-adicionar-carrinho botao-insta" title="Adicionar ao Carrinho">
+                    <i class="fa-solid fa-bag-shopping"></i> Comprar
+                </button>
             </div>
-        </section>
+        </div>
+
+        <div class="item-instagram cartao-produto" data-id-produto="7">
+            <img src="https://via.placeholder.com/300x300/f4f4f5/111?text=Post+2" alt="Instagram Produto 7">
+            <div class="overlay-instagram">
+                <p class="titulo-produto"></p>
+                <p class="preco-produto"></p>
+                <button class="botao-adicionar-carrinho botao-insta" title="Adicionar ao Carrinho">
+                    <i class="fa-solid fa-bag-shopping"></i> Comprar
+                </button>
+            </div>
+        </div>
+
+        <div class="item-instagram cartao-produto" data-id-produto="8">
+            <img src="https://via.placeholder.com/300x300/f4f4f5/111?text=Post+3" alt="Instagram Produto 8">
+            <div class="overlay-instagram">
+                <p class="titulo-produto"></p>
+                <p class="preco-produto"></p>
+                <button class="botao-adicionar-carrinho botao-insta" title="Adicionar ao Carrinho">
+                    <i class="fa-solid fa-bag-shopping"></i> Comprar
+                </button>
+            </div>
+        </div>
+
+        <div class="item-instagram cartao-produto" data-id-produto="9">
+            <img src="https://via.placeholder.com/300x300/f4f4f5/111?text=Post+4" alt="Instagram Produto 9">
+            <div class="overlay-instagram">
+                <p class="titulo-produto"></p>
+                <p class="preco-produto"></p>
+                <button class="botao-adicionar-carrinho botao-insta" title="Adicionar ao Carrinho">
+                    <i class="fa-solid fa-bag-shopping"></i> Comprar
+                </button>
+            </div>
+        </div>
+
+        <div class="item-instagram cartao-produto" data-id-produto="10">
+            <img src="https://via.placeholder.com/300x300/f4f4f5/111?text=Post+5" alt="Instagram Produto 10">
+            <div class="overlay-instagram">
+                <p class="titulo-produto"></p>
+                <p class="preco-produto"></p>
+                <button class="botao-adicionar-carrinho botao-insta" title="Adicionar ao Carrinho">
+                    <i class="fa-solid fa-bag-shopping"></i> Comprar
+                </button>
+            </div>
+        </div>
+    </div>
+</section>
     </main>
 
     <footer class="rodape-principal">
         <div class="caixa-rodape">
             <div class="coluna-rodape">
-                <h5>FALE CONOSCO</h5>
+                <h5>ATENDIMENTO</h5>
                 <p>+55 (71) 99999-9999</p>
-                <p>Envie um E-mail</p>
-                <p class="horario-atendimento">Seg-Sex 9h às 18h</p>
+                <p>contato@prataimports.com.br</p>
+                <p class="horario-atendimento">Seg-Sex das 9h às 18h</p>
             </div>
             <div class="coluna-rodape">
-                <h5>CLIENTES</h5>
+                <h5>SUPORTE AO CLIENTE</h5>
                 <ul>
-                    <li><a href="#">Iniciar Devolução</a></li>
-                    <li><a href="#">Política de Troca</a></li>
+                    <li><a href="#">Rastrear Pedido</a></li>
+                    <li><a href="#">Trocas e Devoluções</a></li>
                 </ul>
             </div>
             <div class="coluna-rodape">
-                <h5>EMPRESA</h5>
+                <h5>INSTITUCIONAL</h5>
                 <ul>
+                    <li><a href="#">Sobre a Prata Imports</a></li>
                     <li><a href="#">Política de Privacidade</a></li>
                     <li><a href="#">Termos de Uso</a></li>
                 </ul>
             </div>
             <div class="coluna-rodape coluna-newsletter">
-                <h5>Receba as nossas novidades</h5>
+                <h5>Receba novidades e ofertas</h5>
                 <form id="formulario-newsletter" onsubmit="event.preventDefault();">
-                    <input type="email" placeholder="Digite o seu e-mail" required>
-                    <p class="aviso-privacidade">Ao assinar, você concorda com a nossa <a href="#">Política de Privacidade</a> e com o envio de e-mails promocionais.</p>
+                    <div class="grupo-input-newsletter">
+                        <input type="email" placeholder="Digite o seu e-mail" required>
+                        <button type="submit"><i class="fa-solid fa-arrow-right"></i></button>
+                    </div>
+                    <p class="aviso-privacidade">Ao assinar, você concorda com a nossa <a href="#">Política de Privacidade</a>.</p>
                 </form>
             </div>
         </div>

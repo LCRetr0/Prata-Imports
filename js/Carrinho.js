@@ -19,7 +19,6 @@ const AdicionarAoCarrinho = {
                 alert("Desculpe, este produto não está mais disponível.");
                 return;
             }
-
             const indexItem = carrinho.findIndex(item => String(item.id) === String(carrinhoItem.id));
 
             if (indexItem > -1) {
@@ -67,6 +66,7 @@ const AdicionarAoCarrinho = {
             return carrinho;
         }
     }
+
 };
 
 export default AdicionarAoCarrinho;

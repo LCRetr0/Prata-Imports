@@ -1,5 +1,5 @@
 //import api from "../Client/Api.js";
-import secundario from './FotosProdutos.js';
+import secundario from "./FotosProdutos.js";
 import AdicionarAoCarrinho from "./Carrinho.js"; 
 
 
@@ -16,6 +16,60 @@ document.addEventListener("DOMContentLoaded", async () => {
     const btnAbrirCarrinho = document.getElementById("botao-carrinho");
     const btnFecharCarrinho = document.getElementById("btn-fechar-carrinho");
 
+    if (btnFecharCarrinho) {
+        btnFecharCarrinho.onclick = () => {
+            if (modalCarrinho) modalCarrinho.style.display = "none";
+        };
+    }
+
+    function renderizarModal(itens) {
+        const container = document.getElementById("lista-itens-carrinho");
+        const modalCarrinho = document.getElementById("modal-carrinho");
+        const btnFecharCarrinho = document.getElementById("btn-fechar-carrinho");
+        if (!container) return;
+
+        container.innerHTML = "";
+
+        const carrinhoVazio = !itens || itens.length === 0;
+
+        if (carrinhoVazio) {
+            container.innerHTML = "<p>Seu carrinho está vazio.</p>";
+        } else {
+            itens.forEach(item => {
+                const div = document.createElement("div");
+                div.className = "item-carrinho-linha";
+                div.innerHTML = `
+                    <span>${item.nome} - R$ ${item.preco.toFixed(2).replace(".", ",")} (Qtd: ${item.quantidade})</span>
+                    <button class="btn-remover-item" data-id="${item.id}">❌</button>
+                `;
+                container.appendChild(div);
+            });
+
+            container.querySelectorAll(".btn-remover-item").forEach(btn => {
+                btn.addEventListener("click", (e) => {
+                    const id = e.target.getAttribute("data-id");
+                    const atualizado = AdicionarAoCarrinho.remover(id);
+                    renderizarModal(atualizado);
+                    atualizarContador();
+                });
+            });
+        }
+
+        if (btnFecharCarrinho) {
+            if (carrinhoVazio) {
+                btnFecharCarrinho.innerHTML = "Continuar Comprando";
+                btnFecharCarrinho.onclick = () => {
+                    if (modalCarrinho) modalCarrinho.style.display = "none";
+                };
+            } else {
+                btnFecharCarrinho.innerHTML = "<i class=\"fa-brands fa-whatsapp\"></i> Continuar pelo WhatsApp";
+                btnFecharCarrinho.onclick = () => {
+                    direcionarWhatsapp(itens);
+                };
+            }
+        }
+    }
+
     if (btnAbrirCarrinho) {
         btnAbrirCarrinho.addEventListener("click", async (e) => {
             e.preventDefault();
@@ -24,13 +78,6 @@ document.addEventListener("DOMContentLoaded", async () => {
             if (modalCarrinho) modalCarrinho.style.display = "block";
         });
     }
-
-    if (btnFecharCarrinho) {
-        btnFecharCarrinho.addEventListener("click", () => {
-            if (modalCarrinho) modalCarrinho.style.display = "none";
-        });
-    }
-
     
     document.querySelectorAll(".botao-adicionar-carrinho").forEach(botao => {
         botao.addEventListener("click", async (e) => {
@@ -65,39 +112,36 @@ document.addEventListener("DOMContentLoaded", async () => {
     atualizarContador();
 });
 
-function renderizarModal(itens) {
-    const container = document.getElementById("lista-itens-carrinho");
-    if (!container) return;
-    container.innerHTML = "";
-
-    if (!itens || itens.length === 0) {
-        container.innerHTML = "<p>Seu carrinho está vazio.</p>";
-        return;
-    }
-
-    itens.forEach(item => {
-        const div = document.createElement("div");
-        div.className = "item-carrinho-linha";
-        div.innerHTML = `
-            <span>${item.nome} - R$ ${item.preco.toFixed(2).replace(".", ",")} (Qtd: ${item.quantidade})</span>
-            <button class="btn-remover-item" data-id="${item.id}">❌</button>
-        `;
-        container.appendChild(div);
-    });
-
-    container.querySelectorAll(".btn-remover-item").forEach(btn => {
-        btn.addEventListener("click", (e) => {
-            const id = e.target.getAttribute("data-id");
-            const atualizado = AdicionarAoCarrinho.remover(id);
-            renderizarModal(atualizado);
-            atualizarContador();
-        });
-    });
-}
 
 function atualizarContador() {
     const carrinho = JSON.parse(localStorage.getItem("carrinho")) || [];
     const total = carrinho.reduce((acc, item) => acc + (item.quantidade || 1), 0);
     const contador = document.getElementById("contador-carrinho");
     if (contador) contador.textContent = `(${total})`;
+}
+
+
+function direcionarWhatsapp(itens) {
+    const numeroLoja = "5571999999999"; 
+    console.log("Itens para enviar via WhatsApp:", itens);
+    const linhas = itens.map(item => {
+        const qtd = item.quantidade || 1;
+        const subtotal = (item.preco * qtd).toFixed(2).replace(".", ",");
+        return `• ${item.nome} (Qtd: ${qtd}) - R$ ${subtotal}`;
+    });
+
+    const totalGeral = itens.reduce((acc, item) => {
+        return acc + item.preco * (item.quantidade || 1);
+    }, 0);
+
+    const mensagem = [
+        "Aqui está seu pedido:",
+        "",
+        ...linhas,
+        "",
+        `Total: R$ ${totalGeral.toFixed(2).replace(".", ",")}`
+    ].join("\n");
+
+    const url = `https://wa.me/${numeroLoja}?text=${encodeURIComponent(mensagem)}`;
+    window.open(url, "_blank");
 }

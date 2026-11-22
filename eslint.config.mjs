@@ -1,3 +1,4 @@
+import globals from "globals";
 import pluginReact from "eslint-plugin-react";
 
 export default [
@@ -7,6 +8,9 @@ export default [
       react: pluginReact,
     },
     languageOptions: {
+      globals: {
+        ...globals.browser,
+      },
       parserOptions: {
         ecmaFeatures: {
           jsx: true,
@@ -14,7 +18,7 @@ export default [
       },
     },
     rules: {
-      "react/react-in-jsx-scope": "off", // Desativa a exigência de importar React em todo arquivo 
+      "react/react-in-jsx-scope": "off",
       "no-unused-vars": "warn",
       "no-undef": "error",
       "quotes": ["error", "double"],
