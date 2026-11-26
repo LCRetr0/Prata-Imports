@@ -8,7 +8,13 @@ document.addEventListener("DOMContentLoaded", async () => {
     
     console.log("1 - HTML carregado");
 
-    await secundario.trazerProdutos();
+    const parametros =  new URLSearchParams(window.location.search);
+
+    const categoria = parametros.get("categoria");
+
+    await secundario.trazerProdutos(categoria);
+
+    
 
     console.log("3 - Função trazerProdutos finalizada");
     

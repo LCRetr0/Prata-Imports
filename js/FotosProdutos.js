@@ -1,9 +1,16 @@
 import api from "../Client/Api.js";
 
+let produtosCache = null;
+
 const secundario = {
-  async trazerProdutos() {
+  async trazerProdutos(categoriaSelecionada = null) {
     try {
-      const produtos = await api.buscarDados();
+      if (!produtosCache) {
+          produtosCache = await api.buscarDados();
+      }
+
+      const produtos = produtosCache;
+
       console.log("Produtos recebidos:", produtos);
       console.log("É um array?", Array.isArray(produtos));
       console.log("Quantidade de produtos:", produtos?.length);
@@ -12,12 +19,42 @@ const secundario = {
         return;
       }
 
+      //Filtragem dos produtos por categoria
+
+      let produtosFiltrados = produtos;
+
+      if(categoriaSelecionada ==="beleza"){
+        produtosFiltrados = produtos.filter(produto =>
+          ["beauty","fragrances"].includes(produto.category)
+        );
+      }
+
+      else if (categoriaSelecionada ==="casa"){
+        produtosFiltrados = produtos.filter(produto =>
+          produto.category ==="furniture"
+        );
+      }
+      else if (categoriaSelecionada ==="essenciais"){
+        produtosFiltrados = produtos.filter(produto =>
+          produto.category ==="groceries"
+        );
+      }
+      else if (categoriaSelecionada ==="ofertas"){
+        produtosFiltrados = produtos.filter(produto =>
+          produto.discountPercentage>=10
+        );
+      }
+
+      console.log("Categoria selecionada:", categoriaSelecionada);
+      console.log("Produtos filtrados:", produtosFiltrados);
+
+
       // Preenchimento do banner de destaque
       const secaoDestaque = document.querySelector(".secao-destaque");
       const bannerImg = secaoDestaque?.querySelector(".imagem-fundo-destaque");
       const tituloDestaque = secaoDestaque?.querySelector(".titulo-produto");
 
-      const produtoDestaque = produtos.find((p) => p.id === 1) || produtos[0];
+      const produtoDestaque = produtosFiltrados[0] || produtos[0];
 
       if (bannerImg) {
         bannerImg.src = produtoDestaque.thumbnail;
@@ -34,19 +71,26 @@ const secundario = {
       }
 
       // Preenchimento dos cartões de produtos
-      const cardsProdutos = document.querySelectorAll(".cartao-produto");
+      const cardsProdutos = document.querySelectorAll(".grade-produtos .cartao-produto");
       console.log("Chegou até aqui tb");
 
-      cardsProdutos.forEach((card) => {
-        const idProduto = card.getAttribute("data-id-produto");
-        const produtoEncontrado = produtos.find(
-          (p) => String(p.id) === String(idProduto)
+      cardsProdutos.forEach((card,indice) => {
+    
+        const produtoEncontrado = produtosFiltrados[indice];
+        
+        // Esconde cartões sem produtos correspondentes
+        if (!produtoEncontrado) {
+            card.style.display = "none";
+            return;
+        }
+
+        card.style.display = "";
+
+        // Atualiza o ID do produto
+        card.setAttribute(
+            "data-id-produto",
+            produtoEncontrado.id
         );
-
-        console.log("ID do cartão: ", idProduto);
-        console.log("Produto encontrado: ", produtoEncontrado);
-
-        if (!produtoEncontrado) return;
 
         const imgTag = card.querySelector("img");
         const tituloTag = card.querySelector(".titulo-produto");
@@ -60,42 +104,66 @@ const secundario = {
           tituloTag.textContent = produtoEncontrado.title;
         }
         if (precoTag) {
-          const precoReais = (produtoEncontrado.price * 5).toFixed(2).replace(".", ",");
+
+          let preco = produtoEncontrado.price;
+
+          //Aplica o desconto somente na categoria ofertas
+
+          if(categoriaSelecionada=="ofertas"){
+            preco = preco *(1 - produtoEncontrado.discountPercentage/100);
+          }
+
+          const precoReais = (preco * 5).toFixed(2).replace(".", ",");
+          
           precoTag.textContent = `R$ ${precoReais}`;
         }
       });
 
-      // Preenchimento dos banners duplos do centro
-      const cardsdocentro = document.querySelectorAll(".secao-banner-duplo");
-      console.log("Chegou até aqui tb");
-
-      cardsdocentro.forEach((card) => {
-        const idProduto2 = card.getAttribute("data-id-produto");
-        const produtoEncontrado2 = produtos.find(
-          (p) => String(p.id) === String(idProduto2)
+      // 5. Preenchimento dos cartões do Instagram
+        const cardsInstagram = document.querySelectorAll(
+            ".grade-instagram .cartao-produto"
         );
 
-        console.log("ID do cartão: ", idProduto2);
-        console.log("Produto encontrado: ", produtoEncontrado2);
+        cardsInstagram.forEach((card)=>{
 
-        if (!produtoEncontrado2) return;
+          const idProduto = card.getAttribute("data-id-produto");
 
-        const imgTag = card.querySelector(".caixa-banner img") || card.querySelector("img");
-        const tituloTag = card.querySelector(".titulo-produto");
-        const precoTag = card.querySelector(".preco-produto");
+          const produtoEncontrado = produtos.find(
+                    produto => String(produto.id) === String(idProduto)
+                );
 
-        if (imgTag) {
-          imgTag.src = produtoEncontrado2.thumbnail;
-          imgTag.alt = produtoEncontrado2.title;
-        }
-        if (tituloTag) {
-          tituloTag.textContent = produtoEncontrado2.title;
-        }
-        if (precoTag) {
-          const precoReais = (produtoEncontrado2.price * 5).toFixed(2).replace(".", ",");
+          if(!produtoEncontrado) return;
+
+          const imgTag = card.querySelector("img");
+          const tituloTag = card.querySelector(".titulo-produto");
+          const precoTag = card.querySelector(".preco-produto");
+
+          if (imgTag) {
+                    imgTag.src = produtoEncontrado.thumbnail;
+                    imgTag.alt = produtoEncontrado.title;
+                }
+
+          if (tituloTag) {
+              tituloTag.textContent = produtoEncontrado.title;
+          }
+
+          if (precoTag) {
+
+          let preco = produtoEncontrado.price;
+
+          //Aplica o desconto somente na categoria ofertas
+
+          if(categoriaSelecionada=="ofertas"){
+            preco = preco *(1 - produtoEncontrado.discountPercentage/100);
+          }
+
+          const precoReais = (preco * 5).toFixed(2).replace(".", ",");
+          
           precoTag.textContent = `R$ ${precoReais}`;
         }
-      });
+            });
+
+          
     } catch (error) {
       console.error("Erro ao carregar produtos e imagens:", error);
     }
