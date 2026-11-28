@@ -8,7 +8,7 @@ A curated lifestyle, beauty, fragrance, and home decor e-commerce storefront bui
 * **Discount & Currency Formatting:** Applies percentage discounts on `ofertas` and formats prices in Brazilian Reais (`R$`).
 * **Interactive Storefront Sections:** Includes an announcement bar, sticky header, featured highlight section, category cards, product grid, dual editorial banners, manifesto block, and a 5-card shoppable `@PrataImports` grid.
 * **Persistent Shopping Bag (`localStorage`):** Adds items from product cards, Instagram cards, or the featured banner, increments quantities, removes items, syncs the cart counter, and verifies item availability.
-* **WhatsApp Order Summary:** Builds a formatted message containing each item's name, quantity, subtotal, and grand total to open directly in WhatsApp (`wa.me`)[cite: 8].
+* **WhatsApp Order Summary:** Builds a formatted message containing each item's name, quantity, subtotal, and grand total to open directly in WhatsApp (`wa.me`).
 * **Institutional Pages:** Separate pages under `Auxiliares/` for *Sobre Nós*, *Política de Privacidade* (LGPD), *Termos de Uso*, and *Trocas e Devoluções*.
 
 ## Tech Stack & Tooling
